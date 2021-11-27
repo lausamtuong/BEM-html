@@ -1,0 +1,1 @@
+let texta  = document.getElementById("1222")

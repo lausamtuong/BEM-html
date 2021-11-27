@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cs.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    <!--SUCCESS-->
+    <div id="toast">
+      
+    </div>
+   
+    
+     <!-- Info-->
+     <!-- <div id="toast">
+        <div class="toast toast--info">
+            <div class="toast__icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="toast__body">
+                <h3 class="toast__title">Info</h3>
+                <p class="toast__msg">Chúc mừng bạn đã kết nối thành công! Success</p>
+            </div>
+            <div class="toast__close">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+     </div> -->
+    
+     <!-- Warning -->
+     <!-- <div class="toast toast--warning">
+        <div class="toast__icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="toast__body">
+            <h3 class="toast__title">Cảnh báo!</h3>
+            <p class="toast__msg">Cảnh báo bạn có thể bị nhiễm viruss, cẩn thận please!</p>
+        </div>
+        <div class="toast__close">
+            <i class="fas fa-times"></i>
+        </div>
+    </div> -->
+    <div>
+        <div onclick="showSuccess()" class="btn btn--success">Success</div>
+        <div onclick="showWarning()"class="btn btn--danger">Errorr</div>
+    </div>
+    <script>
+        function toast(   {
+                title='',
+                message='',
+                type='',
+                duration=''
+        }){
+        const main=document.getElementById('toast')
+        if(main){
+            const toast= document.createElement('div')
+           const autod= setTimeout(function(){
+                main.removeChild(toast)
+            },4000)
+            toast.onclick =function(e){
+                if(e.target.closest('.toast__close'))
+                {
+                    main.removeChild(toast)
+                    clearTimeout(autod)
+                }
+            }
+            
+            const icons = {
+                success:'fas fa-check-circle',
+                warning:'fas fa-exclamation-circle ',
+                info:'fas fa-info-circle'   
+            }
+            const delay=(duration / 1000).toFixed(2);
+            const icon=icons[type];
+            toast.style.animation=`slide ease 0.5s, fadeOut ease 1s ${delay}s forwards`;
+            toast.classList.add('toast',`toast--${type}`)
+            toast.innerHTML=`  <div class="toast__icon">
+                <i class="${icon}"></i>
+            </div>
+            <div class="toast__body">
+                <h3 class="toast__title">${title}</h3>
+                <p class="toast__msg">${message}</p>
+            </div>
+            <div class="toast__close">
+                <i class="fas fa-times"></i>
+            </div>`;
+            main.appendChild(toast)
+           
+        }
+    }
+        function showSuccess(){
+            toast(
+            {
+                title:'Thành công',
+                message:'Chúc mừng bạn đã kết nối thành công! Success',
+                type:'success',
+                duration:6000
+            }
+        )
+        }
+        function showWarning(){
+            toast(
+            {
+                title:'Thất bại',
+                message:'Có lỗi xảy ra vui lòng kiểm tra lại',
+                type:'warning',
+                duration:3000
+            }
+        )
+        }
+    </script>
+</body>
+</html>
